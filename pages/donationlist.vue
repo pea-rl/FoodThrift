@@ -8,6 +8,11 @@
       <template v-slot:item.Description="{ item }">
         {{ item.Description }}
       </template>
+
+      <template v-slot:item.Item2Donate="{ item }">
+        {{ item.Item2Donate }}
+      </template>
+
       <template v-slot:item.Location="{ item }">
         {{ item.Location }}
       </template>
@@ -39,7 +44,8 @@ export default {
       Donation: [],
       headers: [
         { text: 'Title', value: 'Title' },
-        { text: 'Description', value: 'Description' },       
+        { text: 'Description', value: 'Description' }, 
+        { text: 'Item to Donate', value: 'Item2Donate' },      
         { text: 'Food Type', value: 'FoodType' },
         { text: 'Food Expiry', value: 'FoodExpiry' },
         { text: 'Pick up Date', value: 'PickUPDate' },

@@ -35,7 +35,7 @@
                       <div
                         class="text-uppercase text-primary fw-bold text-xs mb-1"
                       >
-                        <span>Total Number of Donors</span>
+                        <span>Total Number of Donors:</span>
                       </div>
                       <div class="text-dark fw-bold h5 mb-0">
                         <span>{{ Donors }}</span>
@@ -51,7 +51,7 @@
                       <div
                         class="text-uppercase text-primary fw-bold text-xs mb-1"
                       >
-                        <span>Total Number of beneficiaries</span>
+                        <span>Total Number of beneficiaries:</span>
                       </div>
                       <div class="text-dark fw-bold h5 mb-0">
                         <span>{{ Persons }}</span>
@@ -71,7 +71,7 @@
                   <div class="row align-items-center no-gutters">
                     <div class="col me-2">
                       <div class="text-uppercase text-warning fw-bold text-xs mb-1">
-                        <span>Number of Donation</span>
+                        <span>Number of Donations:</span>
                       </div>
                       <div class="text-dark fw-bold h5 mb-0">
                         <span>{{ Donation }}</span>
@@ -91,7 +91,7 @@
                   <div class="row align-items-end no-gutters">
                     <div class="col me-2">
                       <div class="text-uppercase text-warning fw-bold text-xs mb-1">
-                        <span>Number of Donation Drives</span>
+                        <span>Number of Donation Drives:</span>
                       </div>
                       <div class="text-dark fw-bold h5 mb-0">
                         <span>{{ Campaigns }}</span>

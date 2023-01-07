@@ -27,7 +27,8 @@
         </v-modal>
       </v-col><!--End Of Modal-->
       <v-col cols="6" style="height: 400px">
-        <v-data-table :items="Persons" :headers="headers" class="elevation-1" >
+        <v-text-field v-model="search" label="Search"></v-text-field><!--Search bar-->
+        <v-data-table :items="filteredPersons" :headers="headers" class="elevation-1" >
           <template v-slot:item.Email="{ item }">
             {{ item.Email}}
           </template>   
@@ -53,7 +54,15 @@ export default {
         { text: '', value: 'Edit' },
       ],
       modal: false,
-      selectedPerson: {}
+      selectedPerson: {},
+      search:''
+    }
+  },
+  computed: {
+    filteredPersons() {
+      return this.Persons.filter(person => {
+        return person.Email.toLowerCase().includes(this.search.toLowerCase())
+      })
     }
   },
   created () {

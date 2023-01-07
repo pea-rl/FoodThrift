@@ -22,10 +22,11 @@
             <v-spacer></v-spacer>
             <v-btn color="red" @click="deleteDonors(selectedDonors.Email)">Delete</v-btn>
           </v-card-actions>
-        </v-modal>
+        </v-modal><!---End of modal-->
       </v-col>
       <v-col cols="6" style="height: 400px">
-        <v-data-table :items="Donors" :headers="headers" class="elevation-1" >
+        <v-text-field v-model="search" label="Search"></v-text-field><!--Search bar-->
+        <v-data-table :items="filteredDonors" :headers="headers" class="elevation-1" >
           <template v-slot:item.Email="{ item }">
             {{ item.Email}}
           </template>   
@@ -51,7 +52,16 @@ export default {
         { text: '', value: 'Edit' },
       ],
       modal: false,
-      selectedDonors: {}
+      selectedDonors: {},
+      search:''
+
+    }
+  },
+  computed: {
+    filteredDonors() {
+      return this.Donors.filter(Donors => {
+        return Donors.Email.toLowerCase().includes(this.search.toLowerCase())
+      })
     }
   },
   created () {
