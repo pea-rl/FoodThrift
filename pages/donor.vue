@@ -1,5 +1,5 @@
 <template>
-  <v-container><!--Ang db ani kay ang sa bene pa-->
+  <v-container>
     <h2>Donors List</h2>
     <v-row>
       <v-col cols="6">
@@ -18,8 +18,12 @@
            <!--<v-card-title > <B>Account Type: &nbsp;</B>{{ selectedPerson.AccType }} </v-card-title> 
            <v-card-title > <B>Account Type: &nbsp;</B>{{ selectedPerson.AccType }} </v-card-title> //Extra-->
           </v-card>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="red" @click="deletePerson(selectedPerson.Email)">Delete</v-btn>
+          </v-card-actions>
         </v-modal>
-      </v-col><!--End Of Modal-->
+      </v-col>
       <v-col cols="6" style="height: 400px">
         <v-data-table :items="Persons" :headers="headers" class="elevation-1" >
           <template v-slot:item.Email="{ item }">
@@ -27,7 +31,7 @@
           </template>   
           <template v-slot:item.Edit="{ item }">
             <v-btn @click="openModal(item)">See More</v-btn>
-          </template> 
+          </template>
         </v-data-table>
       </v-col>
     </v-row>
@@ -59,11 +63,13 @@ export default {
     openModal (item) {
       this.selectedPerson = item
       this.modal = true
-    }
+    },
+    deletePerson (id) {
+  firebase.database().ref(`Persons/${id}`).remove()
+}
   }
 }
 </script>
-
 <style>
   /* make the v-container overflow-y scrollable */
   .v-container1 {

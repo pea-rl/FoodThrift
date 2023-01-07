@@ -19,6 +19,11 @@
            <!--<v-card-title > <B>Account Type: &nbsp;</B>{{ selectedPerson.AccType }} </v-card-title> 
            <v-card-title > <B>Account Type: &nbsp;</B>{{ selectedPerson.AccType }} </v-card-title> //Extra-->
           </v-card>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="red" @click="deletePerson(selectedPerson.Email)">Delete</v-btn>
+          </v-card-actions>
+
         </v-modal>
       </v-col><!--End Of Modal-->
       <v-col cols="6" style="height: 400px">
@@ -61,20 +66,23 @@ export default {
       this.selectedPerson = item
       this.modal = true
     },
+    deletePerson (id) {
+      firebase.database().ref(`Persons/${id}`).remove()
+    },
     updateStatus() {
-  if (!this.selectedPerson || !this.selectedPerson.id) {
-    return
+      if (!this.selectedPerson || !this.selectedPerson.id) {
+      return
   }
-  const ref = firebase.database().ref(`Persons/${this.selectedPerson.id}`)
-  this.selectedPerson.Subscription = this.selectedPerson.Subscription === 'Basic User' ? 'Subscribed' : 'Basic User'
-  ref.update({ Subscription: this.selectedPerson.Subscription }, error => {
-    if (error) {
-      console.log(error)
-    } else {
-      console.log('Update successful')
+      const ref = firebase.database().ref(`Persons/${this.selectedPerson.id}`)
+      this.selectedPerson.Subscription = this.selectedPerson.Subscription === 'Basic User' ? 'Subscribed' : 'Basic User'
+      ref.update({ Subscription: this.selectedPerson.Subscription }, error => {
+        if (error) {
+          console.log(error)
+        } else {
+          console.log('Update successful')
+        }
+     })
     }
-  })
-}
   }
 }
 </script>
