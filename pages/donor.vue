@@ -14,7 +14,7 @@
            <v-card-title > <B>Business Name: &nbsp;</B>{{ selectedPerson.BusinessName }} </v-card-title> 
            <v-card-title > <B>Business Contact Number: &nbsp;</B>{{ selectedPerson.BusinessContact }} </v-card-title>           
            <v-card-title > <B>Business TIN: &nbsp;</B>{{ selectedPerson.BusinessTIN }} </v-card-title> 
-           <v-card-title > <B>Subscription: &nbsp;</B>{{ selectedPerson.Subscription }}</v-card-title>
+           <!--<v-card-title > <B>Subscription: &nbsp;</B>{{ selectedPerson.Subscription }}</v-card-title>-->
            <!--<v-card-title > <B>Account Type: &nbsp;</B>{{ selectedPerson.AccType }} </v-card-title> 
            <v-card-title > <B>Account Type: &nbsp;</B>{{ selectedPerson.AccType }} </v-card-title> //Extra-->
           </v-card>
