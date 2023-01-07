@@ -65,7 +65,7 @@ export default {
       this.modal = true
     },
     deletePerson (id) {
-  firebase.database().ref(`Persons/${id}`).remove()
+    firebase.database().ref(`Persons/${id}`).remove()
 }
   }
 }
