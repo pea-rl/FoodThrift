@@ -9,7 +9,7 @@
             <v-card-title > <B>Last Name: &nbsp;</B>{{ selectedPerson.Lname }} </v-card-title> 
             <v-card-title > <B>Email: &nbsp;</B>{{ selectedPerson.Email }} </v-card-title> 
             <v-card-title > <B>Address: &nbsp;</B>{{ selectedPerson.Address }} </v-card-title> 
-           <!-- <v-card-title > <B>Address: &nbsp;</B>{{ selectedPerson.Address }} </v-card-title> //Wala sa db -->
+           <!-- <v-card-title > <B>Address: &nbsp;</B>{{ selectedPerson.Address }} </v-card-title> //huwat kay Wala sa db -->
            <v-card-title > <B>Account Type: &nbsp;</B>{{ selectedPerson.AccType }} </v-card-title> 
            <v-card-title > <B>Business Name: &nbsp;</B>{{ selectedPerson.BusinessName }} </v-card-title> 
            <v-card-title > <B>Business Contact Number: &nbsp;</B>{{ selectedPerson.BusinessContact }} </v-card-title>           
