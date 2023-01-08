@@ -2,24 +2,27 @@
   <v-container>
     <h2>Campaigns List</h2>
     <v-data-table :items="Campaigns" :headers="headers" class="elevation-1">
-      <template v-slot:item.Title="{ item }">
-        {{ item.Title}}
+      <template v-slot:item.ReqTitle="{ item }">
+        {{ item.ReqTitle}}
+      </template>
+      <template v-slot:item.ReqTitle="{ item }">
+        {{ item.ReqTitle}}
       </template>
       <template v-slot:item.Description="{ item }">
         {{ item.Description }}
       </template>
-      <template v-slot:item.Target="{ item }">
-        {{ item.Target }}
+      <template v-slot:item.BenefName="{ item }">
+        {{ item.BenefName }}
       </template>
       <template v-slot:item.Location="{ item }">
-        {{ item.Location }}
+        {{ item.BenefAdd }}
       </template>
-      <template v-slot:item.DriveStart="{ item }">
-        {{ item.DriveStart }}
+      <template v-slot:item.ItemNeeded="{ item }">
+        {{ item.ItemNeeded }}
       </template>
       
-      <template v-slot:item.DriveEnd="{ item }">
-        {{ item.DriveEnd }}
+      <template v-slot:item.="{ item }">
+        {{ item.DateNeeded }}
       </template>
       <template v-slot:item.DatePosted="{ item }">
         {{ item.DatePosted}}
@@ -39,13 +42,13 @@ export default {
       
 Campaigns: [],
       headers: [
-        { text: 'Title', value: 'Title' },
+        { text: 'ID', value: 'ID' },
+        { text: 'Title', value: 'ReqTitle' },
         { text: 'Description', value: 'Description' },       
-        { text: 'Target', value: 'Target' },
-        { text: 'Location', value: 'Location' },
-        { text: 'DriveStart', value: 'DriveStart' },
-        { text: 'DriveEnd', value: 'DriveEnd' },
-        { text: 'DatePosted', value: 'DatePosted' },
+        { text: 'Target', value: 'BenefName' },
+        { text: 'Items Needed', value: 'ItemNeeded' },
+        { text: 'BenefAdd', value: 'BenefAdd' },
+        { text: 'DateNeeded', value: 'DateNeeded' },
         
       ]
     }

@@ -5,28 +5,27 @@
       <v-col cols="6">
         <v-modal v-model="modal" centered>
           <v-card class="text-left">
-            <v-card-title > <B>First Name: &nbsp;</B>{{ selectedDonors.Fname }} </v-card-title> 
-            <v-card-title > <B>Last Name: &nbsp;</B>{{ selectedDonors.Lname }} </v-card-title> 
-            <v-card-title > <B>Email: &nbsp;</B>{{ selectedDonors.Email }} </v-card-title> 
-            <v-card-title > <B>Address: &nbsp;</B>{{ selectedDonors.Address }} </v-card-title> 
-           <!-- <v-card-title > <B>Address: &nbsp;</B>{{ selectedDonors.Address }} </v-card-title> //Wala sa db -->
-           <v-card-title > <B>Account Type: &nbsp;</B>{{ selectedDonors.AccType }} </v-card-title> 
-           <v-card-title > <B>Business Name: &nbsp;</B>{{ selectedDonors.BusinessName }} </v-card-title> 
-           <v-card-title > <B>Business Contact Number: &nbsp;</B>{{ selectedDonors.BusinessContact }} </v-card-title>           
-           <v-card-title > <B>Business TIN: &nbsp;</B>{{ selectedDonors.BusinessTIN }} </v-card-title> 
-           <!--<v-card-title > <B>Subscription: &nbsp;</B>{{ selectedDonors.Subscription }}</v-card-title>-->
-           <!--<v-card-title > <B>Account Type: &nbsp;</B>{{ selectedDonors.AccType }} </v-card-title> 
-           <v-card-title > <B>Account Type: &nbsp;</B>{{ selectedDonors.AccType }} </v-card-title> //Extra-->
+            <v-card-title > <B>First Name: &nbsp;</B>{{ selectedDonor.Fname }} </v-card-title> 
+            <v-card-title > <B>Last Name: &nbsp;</B>{{ selectedDonor.Lname }} </v-card-title> 
+            <v-card-title > <B>Email: &nbsp;</B>{{ selectedDonor.Email }} </v-card-title> 
+            <v-card-title > <B>Address: &nbsp;</B>{{ selectedDonor.Address }} </v-card-title> 
+           <v-card-title > <B>Account Type: &nbsp;</B>{{ selectedDonor.AccType }} </v-card-title> 
+           <v-card-title > <B>Business Name: &nbsp;</B>{{ selectedDonor.BusinessName }} </v-card-title> 
+           <v-card-title > <B>Business Contact Number: &nbsp;</B>{{ selectedDonor.BusinessContact }} </v-card-title>           
+           <v-card-title > <B>Business TIN: &nbsp;</B>{{ selectedDonor.BusinessTIN }} </v-card-title> 
+           <!--<v-card-title > <B>Subscription: &nbsp;</B>{{ selectedDonor.Subscription }}</v-card-title>-->
+           <!--<v-card-title > <B>Account Type: &nbsp;</B>{{ selectedDonor.AccType }} </v-card-title> 
+           <v-card-title > <B>Account Type: &nbsp;</B>{{ selectedDonor.AccType }} </v-card-title> //Extra-->
           </v-card>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="red" @click="deleteDonors(selectedDonors.Email)">Delete</v-btn>
+            <v-btn color="red" @click="deletePerson">Delete</v-btn>
           </v-card-actions>
         </v-modal><!---End of modal-->
       </v-col>
       <v-col cols="6" style="height: 400px">
         <v-text-field v-model="search" label="Search"></v-text-field><!--Search bar-->
-        <v-data-table :items="filteredDonors" :headers="headers" class="elevation-1" >
+        <v-data-table :items="filteredDonor" :headers="headers" class="elevation-1" >
           <template v-slot:item.Email="{ item }">
             {{ item.Email}}
           </template>   
@@ -45,38 +44,38 @@ import firebase from '~/plugins/firebase'
 export default {
   data () {
         return {
-      Donors: [],
+      Donor: [],
       headers: [
         { text: 'Email', value: 'Email' },
        // { text: 'Password', value: 'Password' },
         { text: '', value: 'Edit' },
       ],
       modal: false,
-      selectedDonors: {},
+      selectedDonor: {},
       search:''
 
     }
   },
   computed: {
-    filteredDonors() {
-      return this.Donors.filter(Donors => {
-        return Donors.Email.toLowerCase().includes(this.search.toLowerCase())
+    filteredDonor() {
+      return this.Donor.filter(Donor => {
+        return Donor.Email.toLowerCase().includes(this.search.toLowerCase())
       })
     }
   },
   created () {
-    firebase.database().ref('Donors').on('value', snapshot => {
-      this.Donors = Object.values(snapshot.val())
+    firebase.database().ref('Donor').on('value', snapshot => {
+      this.Donor = Object.values(snapshot.val())
     })
   },
   methods: {
     openModal (item) {
-      this.selectedDonors = item
+      this.selectedDonor = item
       this.modal = true
     },
-    deleteDonors (id) {
-    firebase.database().ref(`Donors/${id}`).remove()
-}
+  //  deleteDonor (id) {
+    //firebase.database().ref(`Donor/${id}`).remove()
+//}
   }
 }
 </script>

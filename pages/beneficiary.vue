@@ -21,7 +21,7 @@
           </v-card>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="red" @click="deletePerson(selectedPerson.Email)">Delete</v-btn>
+            <v-btn color="red" @click="deletePerson">Delete</v-btn>
           </v-card-actions>
 
         </v-modal>
@@ -75,9 +75,10 @@ export default {
       this.selectedPerson = item
       this.modal = true
     },
-    deletePerson (id) {
-      firebase.database().ref(`Persons/${id}`).remove()
-    },
+    //async deletePerson() {
+    //  const db = firebase.database()
+     // await db.ref(`Persons/${this.selectedPerson.Email}`).remove()
+    //},
     updateStatus() {
       if (!this.selectedPerson || !this.selectedPerson.id) {
       return

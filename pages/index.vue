@@ -38,7 +38,7 @@
                         <span>Total Number of Donors:</span>
                       </div>
                       <div class="text-dark fw-bold h5 mb-0">
-                        <span>{{ Donors }}</span>
+                        <span>{{ Donor }}</span>
                       </div>
                     </div>
                   </div>
@@ -125,7 +125,7 @@ import firebase from 'firebase'
 export default {
   data() {
     return {
-      Donors: 0,
+      Donor: 0,
       Campaigns: 0,
       Donation: 0,
       //beneficiaries: 0
@@ -133,14 +133,14 @@ export default {
   },
   created() {
     // Set up references to the four nodes
-    const DonorsRef = firebase.database().ref('Donors')
+    const DonorRef = firebase.database().ref('Donor')
     const CampaignsRef = firebase.database().ref('Campaigns')
     const DonationRef = firebase.database().ref('Donation')
     const PersonsRef = firebase.database().ref('Persons')
 
     // Listen for changes to the data in each node
-    DonorsRef.on('value', snapshot => {
-      this.Donors = snapshot.numChildren()
+    DonorRef.on('value', snapshot => {
+      this.Donor = snapshot.numChildren()
     })
     CampaignsRef.on('value', snapshot => {
       this.Campaigns = snapshot.numChildren()
