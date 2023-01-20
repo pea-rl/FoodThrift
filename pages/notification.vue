@@ -3,9 +3,6 @@
     <v-container>
       <h2>Delivery Status</h2>
       <v-data-table :items="Notification" :headers="headers" :sort-by="sortBy" :sort-desc.sync="sortDesc" class="elevation-1">
-         <!--<template v-slot:item.ID="{ item  }">
-          {{ item.ID}}
-        </template>-->
         <template v-slot:item.Sender="{ item }">
           {{ item.Sender}}
         </template>
@@ -21,18 +18,14 @@
         <template v-slot:item.Status="{ item }">
           {{ item.Status }}
         </template>
-        <template v-slot:item.TobeDelivered="{ item }">
-        <v-btn @click="updateStatus(item.Date, 'To be Delivered')">Update Status</v-btn>
-
+        <template v-slot:item.Actions="{ item }">
+          <v-select :items="actions" v-model="selectedAction" @change="updateStatus(item.Date, selectedAction)"></v-select>
         </template>
-        <template v-slot:item.Delivered="{ item }">
-        <v-btn @click="updateStatus(item.Date, 'Delivered')">Update Status</v-btn>
-        </template>
-
       </v-data-table>
     </v-container>
   </div>
 </template>
+
 <script>
 import firebase from '~/plugins/firebase'
 
@@ -43,15 +36,15 @@ export default {
       sortDesc: true,
       Notification: [],
       headers: [
-        //{ text: 'ID', value: 'ID' },
         { text: 'Sender', value: 'Sender' },
         { text: 'Description', value: 'Description' },       
         { text: 'Target', value: 'Target' },
         { text: 'Date', value: 'Date' },
         { text: 'Status', value: 'Status' },
-        { text: 'Set as delivered', value: 'Delivered' },
-        { text: 'Set as to be delivered', value: 'TobeDelivered' }
-      ]
+        { text: 'Actions', value: 'Actions' }
+      ],
+      actions: ['To Pick-up', 'For Delivery', 'Picked Up', 'Delivered'],
+      selectedAction: ''
     }
   },
   created () {
@@ -61,7 +54,7 @@ export default {
   },
   methods: {
     updateStatus(date, newStatus) {
-      if(newStatus !== 'Delivered' && newStatus !== 'To be Delivered'){
+      if(!this.actions.includes(newStatus)){
         return;
       }
       const statusRef = firebase.database().ref(`Notification`);
@@ -81,6 +74,5 @@ export default {
             });
     }
   }
-
 }
 </script>
