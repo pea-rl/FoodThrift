@@ -43,7 +43,7 @@ export default {
         { text: 'Status', value: 'Status' },
         { text: 'Actions', value: 'Actions' }
       ],
-      actions: ['To Pick-up', 'For Delivery', 'Picked Up', 'Delivered'],
+      actions: ['For Pick-up', 'For Delivery', 'Picked Up', 'Delivered'],
       selectedAction: ''
     }
   },
