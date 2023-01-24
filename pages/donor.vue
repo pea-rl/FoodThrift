@@ -13,14 +13,13 @@
            <v-card-title > <B>Business Name: &nbsp;</B>{{ selectedDonor.BusinessName }} </v-card-title> 
            <v-card-title > <B>Business Contact Number: &nbsp;</B>{{ selectedDonor.BusinessContact }} </v-card-title>           
            <v-card-title > <B>Business TIN: &nbsp;</B>{{ selectedDonor.BusinessTIN }} </v-card-title> 
+           <v-card-title > Status: &nbsp;{{ selectedDonor.Status }}
+           <v-btn @click="updateStatus">Set Status</v-btn> </v-card-title>
            <!--<v-card-title > <B>Subscription: &nbsp;</B>{{ selectedDonor.Subscription }}</v-card-title>-->
            <!--<v-card-title > <B>Account Type: &nbsp;</B>{{ selectedDonor.AccType }} </v-card-title> 
            <v-card-title > <B>Account Type: &nbsp;</B>{{ selectedDonor.AccType }} </v-card-title> //Extra-->
           </v-card>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="red" @click="deletePerson">Delete</v-btn>
-          </v-card-actions>
+          
         </v-modal><!---End of modal-->
       </v-col>
       <v-col cols="6" style="height: 400px">
@@ -73,10 +72,17 @@ export default {
       this.selectedDonor = item
       this.modal = true
     },
-  //  deleteDonor (id) {
-    //firebase.database().ref(`Donor/${id}`).remove()
-//}
-  }
+    updateStatus() {
+if(this.selectedDonor.Status === 'Active') {
+this.selectedDonor.Status = 'Inactive'
+} else {
+this.selectedDonor.Status = 'Active'
+}
+firebase.database().ref('Donor/' + this.selectedDonor.id).update({
+Status: this.selectedDonor.Status
+})
+}
+}
 }
 </script>
 <style>
