@@ -29,10 +29,18 @@
       <template v-slot:item.TransportMethod="{ item }">
         {{ item.TransportMethod }}
       </template>
-
+      <template v-slot:item.DeliverySchedule="{ item }">
+        {{ item.DeliverySchedule }}
+      </template>
+      <template v-slot:item.Edit="{ item }">
+            <v-btn color="primary" @click="navigateToDelivery">Set Delivery</v-btn>
+      </template> 
+        
 
     </v-data-table>
+       
   </v-container>
+  
 </template>
 
 <script>
@@ -50,6 +58,8 @@ export default {
         { text: 'Food Expiry', value: 'FoodExpiry' },
         { text: 'Pick up Date', value: 'PickUPDate' },
         { text: 'Transport Method', value: 'TransportMethod' },
+        { text: 'Delivery Schedule', value: 'DeliverySchedule' },
+        { text: '', value: 'Edit' },
         
       ]
     }
@@ -58,6 +68,11 @@ export default {
     firebase.database().ref('Donation').on('value', snapshot => {
       this.Donation = Object.values(snapshot.val())
     })
+  },
+   methods: {
+    navigateToDelivery() {
+      this.$nuxt.$router.push('/delivery')
+    }
   }
 }
 </script>
