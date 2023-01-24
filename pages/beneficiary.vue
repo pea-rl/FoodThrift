@@ -82,7 +82,7 @@ updateStatus() {
   } else {
     this.selectedPerson.Status = 'Active'
   }
-  firebase.database().ref('persons/' + this.selectedPerson.id).update({
+  firebase.database().ref('Persons/' + this.selectedPerson.id).update({
     Status: this.selectedPerson.Status
   })
 },
