@@ -45,7 +45,7 @@
             </v-row>
           </nuxt-link>
 
-          <nuxt-link to="/auth/signout">
+          <nuxt-link to="/signout">
             <v-row no-gutters align="left" justify="Center">
               <v-icon color="#e6d8bb">mdi-exit-to-app</v-icon>
             </v-row>

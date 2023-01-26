@@ -1,3 +1,5 @@
+es (90 sloc)  2.97 KB
+
 <template>
   <v-container>
     <h2>Beneficiaries List</h2>
@@ -39,7 +41,6 @@
 </template>
 <script>
 import firebase from '~/plugins/firebase'
-
 export default {
   data () {
     return {
@@ -86,8 +87,6 @@ updateStatus() {
     Status: this.selectedPerson.Status
   })
 },
-
-
 }
 }
-</script>
+</script> 

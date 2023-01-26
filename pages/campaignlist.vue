@@ -14,9 +14,7 @@
       <template v-slot:item.BenefAdd="{ item }">
         {{ item.BenefAdd }}
       </template>
-      <template v-slot:item.ItemNeeded="{ item }">
-        {{ item.ItemNeeded }}
-      </template>
+    
       <template v-slot:item.DateNeeded="{ item }">
         {{ item.DateNeeded }}
       </template>
@@ -38,7 +36,6 @@ export default {
         { text: 'Title', value: 'ReqTitle' },
         { text: 'Description', value: 'Description' },       
         { text: 'Target', value: 'BenefName' },
-        { text: 'Items Needed', value: 'ItemNeeded' },
         { text: 'BenefAdd', value: 'BenefAdd' },
         { text: 'Date Needed', value: 'DateNeeded' },
         
