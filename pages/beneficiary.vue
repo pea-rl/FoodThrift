@@ -1,5 +1,3 @@
-es (90 sloc)  2.97 KB
-
 <template>
   <v-container>
     <h2>Beneficiaries List</h2>
@@ -15,9 +13,6 @@ es (90 sloc)  2.97 KB
             <v-card-title > Business Name: &nbsp;{{ selectedPerson.BusinessName }} </v-card-title> 
             <v-card-title > Business Contact Number: &nbsp;{{ selectedPerson.BusinessContact }} </v-card-title>           
             <v-card-title > Business TIN: &nbsp;{{ selectedPerson.BusinessTIN }} </v-card-title>
-            <v-card-title > User Account: &nbsp;{{ selectedPerson.UserAcc }} </v-card-title>  
-            <v-card-title > Status: &nbsp;{{ selectedPerson.Status }}
-            <v-btn @click="updateStatus">Set Status</v-btn> </v-card-title> 
            </v-card>
            <v-card-actions>
             <v-spacer></v-spacer>
@@ -31,16 +26,26 @@ es (90 sloc)  2.97 KB
           <template v-slot:item.Email="{ item }">
             {{ item.Email}}
           </template>   
-          <template v-slot:item.Edit="{ item }">
-            <v-btn @click="openModal(item)">See More</v-btn>
-          </template> 
-        </v-data-table>
-      </v-col>
-    </v-row>
+
+                <template v-slot:item.Status="{ item }">
+        {{ item.Status}}
+      </template>
+      <template v-slot:item.Actions="{ item }">
+      <v-select :items="actions" v-model="selectedAction" @change="updateStatus(item.Email, selectedAction)"></v-select>
+    </template>
+      <template v-slot:item.Edit="{ item }">
+        <v-btn @click="openModal(item)">See More</v-btn>
+      </template> 
+    </v-data-table>
+  </v-col>
+</v-row>
+
   </v-container>
 </template>
+
 <script>
 import firebase from '~/plugins/firebase'
+
 export default {
   data () {
     return {
@@ -48,45 +53,58 @@ export default {
       headers: [
         { text: 'Email', value: 'Email' },
         { text: 'Status', value: 'Status' },
+        { text: 'Set status', value: 'Actions' },
         { text: '', value: 'Edit' },
       ],
-      modal: false,
+      actions: ['Active', 'Inactive'],
+      selectedAction: '',
+      modal:false,
       selectedPerson: {},
-      search:''
+      search: ''
     }
   },
-  computed: {
-filteredPersons() {
-return this.persons.filter(person => {
-return person.Email.toLowerCase().includes(this.search.toLowerCase())
-})
+    computed: {
+      filteredPersons() {
+      return this.Persons.filter(Persons => {
+        return Persons.Email.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
+    },
+
+    created () {
+    firebase.database().ref('Persons').on('value', snapshot => {
+      this.Persons = Object.values(snapshot.val())
+    })
+  },
+
+      methods: {
+    openModal (item) {
+      this.selectedPerson = item
+      this.modal = true
+    },
+    updateStatus(email, newStatus) {
+      if(!this.actions.includes(newStatus)){
+        return;
+      }
+      const statusRef = firebase.database().ref(`Persons`);
+       firebase.database().ref('Persons').orderByChild('Email').equalTo(email).once("value", function(snapshot) {
+                snapshot.forEach(function(data) {
+                  const key = data.key;
+                  statusRef.child(key).update({
+                    Status: newStatus
+                  })
+                  .then(() => {
+                      console.log("status updated")
+                  })
+                  .catch((error) => {
+                      console.log(error)
+                  })
+                });
+            });
+    }
+  },
+
+
+  
 }
-},
-created () {
-firebase.database().ref('Persons').on('value', snapshot => {
-this.persons = Object.values(snapshot.val())
-})
-},
-methods: {
-openModal (item) {
-this.selectedPerson = item
-this.modal = true
-},
-async deletePerson() {
-const db = firebase.database()
-await db.ref('Persons/${this.selectedPerson.id}').remove()
-this.modal = false
-},
-updateStatus() {
-  if(this.selectedPerson.Status === 'Active') {
-    this.selectedPerson.Status = 'Inactive'
-  } else {
-    this.selectedPerson.Status = 'Active'
-  }
-  firebase.database().ref('Persons/' + this.selectedPerson.id).update({
-    Status: this.selectedPerson.Status
-  })
-},
-}
-}
-</script> 
+</script>
