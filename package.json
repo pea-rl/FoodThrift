@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
+    "heroku-postbuild": "npm run generate",
     "generate": "nuxt generate",
     "start": "nuxt start"
+    
     
   },
   "dependencies": {

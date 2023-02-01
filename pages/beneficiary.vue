@@ -14,10 +14,6 @@
             <v-card-title > Business Contact Number: &nbsp;{{ selectedPerson.BusinessContact }} </v-card-title>           
             <v-card-title > Business TIN: &nbsp;{{ selectedPerson.BusinessTIN }} </v-card-title>
            </v-card>
-           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="red" @click="deletePerson">Delete</v-btn>
-           </v-card-actions>
         </v-modal>
       </v-col>
       <v-col cols="6" style="height: 400px">
