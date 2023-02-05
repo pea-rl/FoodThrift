@@ -2,6 +2,9 @@
   <v-container>
     <h2>Donation List</h2>
     <v-data-table :items="Donation" :headers="headers" class="elevation-1">
+      <template v-slot:item.ID="{ item }">
+        {{ item.ID }}
+      </template>
       <template v-slot:item.title="{ item }">
         {{ item.title }}
       </template>
@@ -17,8 +20,8 @@
       <template v-slot:item.transportMethod="{ item }">
         {{ item.transportMethod }}
       </template>
-      <template v-slot:item.deliverySchedule="{ item }">
-        {{ item.deliverySchedule }}
+      <template v-slot:item.DeliverySchedule="{ item }">
+        {{ item.DeliverySchedule }}
       </template>
       <template v-slot:item.actions="{ item }">
         <v-btn @click="createDeliverySchedule(item.id)">Create Delivery Schedule</v-btn>
@@ -39,6 +42,7 @@ export default {
   return {
   Donation: [],
       headers: [
+        { text: 'ID', value: 'ID' },
         { text: 'Title', value: 'Title' },
         { text: 'Description', value: 'Description' }, 
         { text: 'Pick up Date', value: 'PickUPDate' },
@@ -56,29 +60,38 @@ export default {
       this.Donation = Object.values(snapshot.val())
     })
   },
-  methods: {
-    createDeliverySchedule(id) {
-      this.selectedId = id
+     methods: {
+    createDeliverySchedule(ID) {
+      this.selectedId = ID
       this.showDatePicker = true
     },
+
     saveDeliverySchedule(item) {
-      if (this.selectedDate) {
-        let date = new Date(this.selectedDate)
-        let deliverySchedule = date.toISOString()
-        firebase.database().ref('Donation').orderByChild('title').equalTo(item.title).once('value', snapshot => {
-          if(snapshot.exists()){
-            snapshot.forEach(childSnapshot => {
-              if (childSnapshot.val().description === item.description && childSnapshot.val().pickUpDate === item.pickUpDate && childSnapshot.val().transportMethod === item.transportMethod) {
-                firebase.database().ref(`Donation/${childSnapshot.key}`).update({ deliverySchedule: deliverySchedule })
-                this.showDatePicker = false
-              }
-            })
-          }else{
-            console.log('Field not exists')
-          }
-        })
+    if (this.selectedDate) {
+    let date = new Date(this.selectedDate)
+    let DeliverySchedule = date.toLocaleDateString()
+    firebase.database().ref('Donation').once('value', snapshot => {
+      let match = false
+      snapshot.forEach(childSnapshot => {
+        let donation = childSnapshot.val()
+        if (donation.ID === item.ID &&
+            donation.title === item.title && 
+            donation.description === item.description && 
+            donation.pickUpDate === item.pickUpDate && 
+            donation.transportMethod === item.transportMethod) {
+          firebase.database().ref(`Donation/${childSnapshot.key}`).update({ DeliverySchedule: DeliverySchedule })
+          match = true
+        }
+      })
+      if (match) {
+        this.showDatePicker = false
+      } else {
+        console.log('Donation not found')
       }
-    }
+    })
+  }
+}
+
   }
 }
 </script>
